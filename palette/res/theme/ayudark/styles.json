@@ -1,7 +1,3 @@
 {
-	"itemHeight": 47,
-	"itemMarginLeft": 25,
-	"itemMarginTop": 8,
-	"itemHoverBackground": "#0c1014",
-	"shadow": 5
+	"shadow": 15
 }

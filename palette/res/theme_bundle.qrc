@@ -1,7 +1,24 @@
 <RCC>
   <qresource prefix="bundle">
-    <file>theme/styles.json</file>
-    <file>theme/window.css</file>
     <file>config.json</file>
+    <!-- About-box banner (896x280, shown at 2x = 448x140 logical). Lives in the
+         repo's top-level assets/ folder; aliased so it loads as
+         :/bundle/ifred-banner.png -->
+    <file alias="ifred-banner.png">../../assets/ifred-banner-896x280.png</file>
+    <!-- Bundled themes. Every directory here is compiled into the plugin and
+         seeded into the user's plugins/palette/theme/ folder on first run
+         (never overwriting), so it shows up in the theme selector.
+         We ship only these four: "dark" (the default, see
+         PALETTE_DEFAULT_THEME) and "light", plus solarized dark/light. The
+         other themes under res/theme/ (ayu*, gitkraken*) are kept in the repo
+         for manual installation but are intentionally NOT bundled. -->
+    <file>theme/dark/styles.json</file>
+    <file>theme/dark/window.css</file>
+    <file>theme/light/styles.json</file>
+    <file>theme/light/window.css</file>
+    <file>theme/solarized-dark/styles.json</file>
+    <file>theme/solarized-dark/window.css</file>
+    <file>theme/solarized-light/styles.json</file>
+    <file>theme/solarized-light/window.css</file>
   </qresource>
 </RCC>

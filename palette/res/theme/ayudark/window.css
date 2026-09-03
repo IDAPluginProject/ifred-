@@ -1,44 +1,161 @@
+/*
+  Ayu Dark Theme for ifred
+  Author  : Jinmo
+  Repo    : github.com/jinmo
+  Palette : https://github.com/ayu-theme/ayu-colors
+*/
+
 * {
-	font-family: Segoe UI;
-	font-size: 15px;
-	background: rgb(19, 24, 29);
-	border-radius: 6px;
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  font-size: 18px;
+  background: #0b0e14;
+  border-radius: 6px;
 }
 
+QMainWindow,
+QLineEdit,
+QListView {
+  width: 700px;
+}
+
+QFrame {
+  background: #0b0e14;
+}
+
+/* Searchbox with the magnifier icon */
+
+QLineEdit {
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  height: 62px !important;
+  font-size: 25px;
+  color: #bfbdb6;
+  border: none;
+  padding-left: 80px;
+  /*
+    input-search.png is a gray magnifier on a transparent background, so the
+    field colour must be set explicitly - otherwise Qt paints the default
+    white QLineEdit base through the transparent areas. Use the longhand
+    background-* properties: the "background: <color> url() ..." shorthand is
+    rejected by Qt's stylesheet parser, and one bad rule makes Qt drop the
+    whole stylesheet (everything reverts to the default white).
+  */
+  background-color: #0b0e14;
+  background-image: url(theme:input-search.png);
+  background-repeat: no-repeat;
+}
+
+/* Scrollbar */
+
 QScrollBar:vertical * {
-    background-color: #000;
+  background-color: #0b0e14;
 }
 
 QScrollBar:vertical {
-    border: none;
-    background: none;
-    background-color: #000;
-    width: 12px;
-    border-radius: 6px;
+  border: none;
+  width: 12px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+  background: #11151c;
 }
 
 QScrollBar::handle:vertical {
-    background: rgba(255,255,255,0.3);
-    min-height: 20px;
-    border-radius: 6px;
+  background: rgba(191, 189, 182, 0.28);
+  min-height: 20px;
+  border-radius: 6px;
 }
 
 QScrollBar::add-line:vertical {
-    width: 0;
-    height: 0;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
+  width: 0;
+  height: 0;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
 }
 
 QScrollBar::sub-line:vertical {
-    width: 0;
-    height: 0;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
+  width: 0;
+  height: 0;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
 }
 
+/* List view and items */
+
 QListView {
-	border: none;
-	min-height: 300px;
-	max-height: 300px;
+  border: none;
+  min-height: 300px;
+  max-height: 300px;
+}
+
+QListView::item {
+  padding-top: 8px;
+  padding-left: 25px;
+}
+
+QListView::item:hover {
+  background: #0b0e14;
+}
+
+QListView::item:selected {
+  background: #1b2433;
+}
+
+/* Item text (rendered as HTML in a QTextDocument) */
+
+table,
+td,
+div,
+p,
+span,
+em {
+  background: transparent;
+}
+
+table {
+  color: #bfbdb6;
+  font-size: 18px;
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  margin-bottom: 18px;
+}
+
+table.selected {
+  color: #ffffff;
+}
+
+td.placeholder {
+  font-size: 1px;
+  width: 700px;
+}
+
+td {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+td.shortcut {
+  float: right;
+  padding-right: 32px;
+}
+
+td.description {
+  color: #565b66;
+  font-size: 14px;
+}
+
+em {
+  /* highlighted (matched) characters */
+  font-weight: bold;
+  color: #ff8f40;
+  font-style: normal;
+}
+
+span {
+  /* action id text - kept invisible */
+  color: transparent;
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  padding-left: 20px;
 }

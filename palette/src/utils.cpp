@@ -2,17 +2,64 @@
 #include <time.h>
 #include <utils.h>
 
-QString loadFileFromBundle(const char* filename, QFile& file, bool& updated) {
-  static bool resource_initialized;
+static QString themesRoot() { return pluginPath("theme/"); }
 
-  if (!resource_initialized) {
-    Q_INIT_RESOURCE(theme_bundle);
-    resource_initialized = true;
+// Copy every theme directory bundled in the resources to disk, unless a
+// directory of that name already exists - user edits are never overwritten.
+// Files copied out of Qt resources come out read-only; fix that up so the
+// user can edit them.
+static void seedBundledThemes() {
+  QDir bundle(":/bundle/theme");
+  for (auto& name : bundle.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+    QDir dst(themesRoot() + name);
+    if (dst.exists()) continue;
+    if (!dst.mkpath(".")) continue;
 
-    QDir::addSearchPath("theme", pluginPath("theme/"));
+    QDir src(bundle.filePath(name));
+    for (auto& file : src.entryList(QDir::Files)) {
+      QString target = dst.filePath(file);
+      if (QFile::copy(src.filePath(file), target))
+        QFile::setPermissions(target, QFileDevice::ReadOwner |
+                                          QFileDevice::WriteOwner |
+                                          QFileDevice::ReadUser |
+                                          QFileDevice::WriteUser |
+                                          QFileDevice::ReadGroup |
+                                          QFileDevice::ReadOther);
+    }
   }
+}
 
-  QFile resFile(":/bundle/" + QString(filename));
+static void ensureThemeInit() {
+  static bool done;
+  if (done) return;
+  done = true;  // before anything below reads config.json through loadFile()
+
+  Q_INIT_RESOURCE(theme_bundle);
+  seedBundledThemes();
+}
+
+// Rewrite a "theme/<file>" request into the active theme's folder, e.g.
+// "theme/window.css" -> "theme/dark/window.css". Every theme - including the
+// default - is a real folder now; there are no top-level theme files. Non-theme
+// paths (config.json) pass through unchanged.
+//
+// This is also where the "theme:" search path used by url(theme:...) in the css
+// files is refreshed, so it always follows whatever config.json says by the time
+// a theme file is loaded, with the themes root as a fallback.
+static QString themeRelative(const QString& filename) {
+  const QString prefix("theme/");
+  if (!filename.startsWith(prefix)) return filename;
+
+  const QString theme = currentTheme();
+  QDir::setSearchPaths("theme",
+                       QStringList() << (themesRoot() + theme) << themesRoot());
+  return prefix + theme + "/" + filename.mid(prefix.size());
+}
+
+// Reads the bundled copy of <rel> (":/bundle/<rel>") and, as a side effect,
+// caches it to <file> on disk so later loads read from disk.
+QString loadFileFromBundle(const QString& rel, QFile& file, bool& updated) {
+  QFile resFile(":/bundle/" + rel);
 
   updated = false;
 
@@ -37,14 +84,16 @@ QString loadFileFromBundle(const char* filename, QFile& file, bool& updated) {
 }
 
 QString loadFile(const char* filename, bool force_update, bool& updated) {
-  auto absolutePath = pluginPath(filename);
-  QFile file(absolutePath);
+  ensureThemeInit();
+
+  const QString rel = themeRelative(QString::fromUtf8(filename));
+  QFile file(pluginPath(rel.toUtf8().constData()));
 
   updated = false;
 
   if (!file.exists()) {
-    // Check if it exists in bundle resource
-    return loadFileFromBundle(filename, file, updated);
+    // Not on disk yet - read (and cache) the bundled copy.
+    return loadFileFromBundle(rel, file, updated);
   }
 
   if (!file.open(QIODevice::ReadOnly)) return QString();
@@ -68,4 +117,36 @@ QJsonObject json(const char* filename, bool force_update) {
   cached_json[filename] = json;
 
   return json.object();
+}
+
+QStringList availableThemes() {
+  ensureThemeInit();
+
+  QStringList themes;
+  QDir root(themesRoot());
+  for (auto& name : root.entryList(QDir::Dirs | QDir::NoDotAndDotDot,
+                                   QDir::Name | QDir::IgnoreCase)) {
+    if (QFile::exists(root.filePath(name + "/window.css"))) themes << name;
+  }
+  return themes;
+}
+
+QString currentTheme() {
+  auto theme = json("config.json")["theme"].toString();
+  return theme.isEmpty() ? QString(PALETTE_DEFAULT_THEME) : theme;
+}
+
+bool setCurrentTheme(const QString& name) {
+  // Rewrite config.json with the new "theme" key and everything else intact.
+  bool updated;
+  auto doc = QJsonDocument::fromJson(
+      loadFile("config.json", false, updated).toUtf8());
+  auto config = doc.object();
+  config["theme"] = name.isEmpty() ? QString(PALETTE_DEFAULT_THEME) : name;
+
+  QFile file(pluginPath("config.json"));
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) return false;
+  file.write(QJsonDocument(config).toJson(QJsonDocument::Indented));
+  file.close();
+  return true;
 }

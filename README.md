@@ -9,12 +9,14 @@
 
 Tested on all operating systems that run IDA Pro.
 
-| OS      | Arch   | Status |
-| ------- | ------ | ------ |
-| Linux   | x86_64 | ✅     |
-| macOS   | x86_64 | ✅     |
-| macOS   | arm64  | ✅     |
-| Windows | x86_64 | ✅     |
+| OS      | Arch    | Status |
+| ------- | ------- | ------ |
+| Linux   | x86_64  | ✅     |
+| Linux   | aarch64 | ✅     |
+| macOS   | x86_64  | ✅     |
+| macOS   | aarch64 | ✅     |
+| Windows | x86_64  | ✅     |
+| Windows | aarch64 | ✅     |
 
 Currently this repo supports IDA Pro with Qt6. For IDA Pro v9.1 and earlier
 with Qt5 support head to [qt5 branch][04]. To build you need IDA Pro SDK.
@@ -103,9 +105,18 @@ solarized dark:
 
 ![screenshot3][03]
 
-[01]: screenshots/1.png
-[02]: screenshots/2.png
-[03]: screenshots/3.png
+## TODO
+
+* [ ] Support HCLI (Will think about this)
+* [ ] Proper versioning (HCLI cries for date versioning)
+* [ ] Palette translation map
+  * [x] Map ready
+* [ ] Is `standalone` working, check this
+* [ ] Custom palette using IDAPython does it still working?
+
+[01]: ./assets/screenshots/1.png
+[02]: ./assets/screenshots/2.png
+[03]: ./assets/screenshots/3.png
 [04]: https://github.com/Jinmo/ifred/tree/qt5
 [05]: https://github.com/Vector35/qt-artifacts/releases
 [06]: https://github.com/blue-devil/ifred/releases

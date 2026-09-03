@@ -2,7 +2,7 @@
   "IDAMetadataDescriptorVersion": 2,
   "plugin": {
     "name": "ifred",
-    "version": "0.0.5",
+    "version": "2026.09.03",
     "description": "IDA command palette & more",
     "entryPoint": "ida_palette64",
     "authors": [
@@ -17,10 +17,13 @@
     "license": "MIT",
     "platforms": [
       "windows-x86_64",
+      "windows-aarch64",
       "linux-x86_64",
+      "linux-aarch64",
+      "macos-x86_64",
       "macos-aarch64"
     ],
-    "idaVersions": ["9.2"],
+    "idaVersions": ["9.4"],
     "keywords": ["palette", "command", "launcher", "fuzzy"]
   }
 }

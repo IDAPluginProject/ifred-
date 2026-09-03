@@ -1,0 +1,158 @@
+/*
+  GitKraken Light Theme for ifred
+  Author  : Blue DeviL // SCT
+  Masto   : @bluedevil@infosec.exchange
+  Repo    : github.com/blue-devil
+  Repo    : gitlab.com/bluedevil
+  Date    : 13.09.2023
+  Palette : https://github.com/JonBunator/gitkraken-custom-themes
+*/
+
+* {
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  font-size: 18px;
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+QMainWindow,
+QLineEdit,
+QListView {
+  width: 700px;
+}
+
+QFrame {
+  background: #ffffff;
+}
+
+/* Searchbox - GitKraken's blue border, no icon */
+
+QLineEdit {
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  height: 34px;
+  font-size: 20px;
+  color: rgb(26, 26, 26);
+  border: 4px solid #4d88ff;
+  border-radius: 5px;
+  background: #ffffff;
+  padding: 4px 12px;
+}
+
+/* Scrollbar */
+
+QScrollBar:vertical * {
+  background-color: #ffffff;
+}
+
+QScrollBar:vertical {
+  border: none;
+  width: 12px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+  background: rgb(240, 240, 240);
+}
+
+QScrollBar::handle:vertical {
+  background: rgb(195, 199, 209);
+  min-height: 20px;
+  border-radius: 6px;
+}
+
+QScrollBar::add-line:vertical {
+  width: 0;
+  height: 0;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  width: 0;
+  height: 0;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+/* List view and items */
+
+QListView {
+  border: none;
+  min-height: 300px;
+  max-height: 300px;
+}
+
+QListView::item {
+  background: #ffffff;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+QListView::item:hover {
+  background: #eef3fd;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+QListView::item:selected {
+  background: #e0e9fc;
+}
+
+/* Item text (rendered as HTML in a QTextDocument) */
+
+table,
+td,
+div,
+p,
+span,
+em {
+  background: transparent;
+}
+
+table {
+  color: rgb(26, 26, 26);
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+table.selected {
+  color: #000000;
+}
+
+td.placeholder {
+  font-size: 1px;
+  width: 700px;
+}
+
+td {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+td.shortcut {
+  float: right;
+  padding-right: 32px;
+  color: rgb(120, 120, 120);
+}
+
+td.description {
+  color: rgb(120, 120, 120);
+  font-size: 14px;
+}
+
+em {
+  /* Highlighted (matched) characters */
+  font-weight: bold;
+  color: #395bbf;
+  font-style: normal;
+}
+
+span {
+  /* Action ID text - kept invisible */
+  color: transparent;
+  padding-left: 20px;
+}

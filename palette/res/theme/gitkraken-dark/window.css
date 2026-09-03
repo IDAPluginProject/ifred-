@@ -1,0 +1,154 @@
+/*
+  Dark Theme for ifred
+  Author  : Jinmo
+  Repo    : github.com/jinmo
+*/
+
+* {
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  font-size: 18px;
+  background: #272a31;
+  border-radius: 6px;
+}
+
+QMainWindow,
+QLineEdit,
+QListView {
+  width: 700px;
+}
+
+QFrame {
+  background: #272a31;
+}
+
+/* Searchbox - GitKraken's blue border, no icon */
+
+QLineEdit {
+  font-family: "Segoe UI", "Ubuntu", "DejaVu Sans", sans-serif;
+  height: 34px;
+  font-size: 20px;
+  color: rgb(204, 204, 204);
+  border: 4px solid #4d88ff;
+  border-radius: 5px;
+  background: #33363f;
+  padding: 4px 12px;
+}
+
+/* Scrollbar */
+
+QScrollBar:vertical * {
+  background-color: #272a31;
+}
+
+QScrollBar:vertical {
+  border: none;
+  width: 12px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+  background: rgb(40, 43, 50);
+}
+
+QScrollBar::handle:vertical {
+  background: rgb(62, 66, 78);
+  min-height: 20px;
+  border-radius: 6px;
+}
+
+QScrollBar::add-line:vertical {
+  width: 0;
+  height: 0;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  width: 0;
+  height: 0;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+/* List view and items */
+
+QListView {
+  border: none;
+  min-height: 300px;
+  max-height: 300px;
+}
+
+QListView::item {
+  background: #272a31;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  border-bottom: 1px solid #000000;
+}
+
+QListView::item:hover {
+  background: #2b3446;
+  border-bottom: 1px solid #000000;
+}
+
+QListView::item:selected {
+  background: #2e3d5a;
+}
+
+/* Item text (rendered as HTML in a QTextDocument) */
+
+table,
+td,
+div,
+p,
+span,
+em {
+  background: transparent;
+}
+
+table {
+  color: rgb(204, 204, 204);
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+table.selected {
+  color: #ffffff;
+}
+
+td.placeholder {
+  font-size: 1px;
+  width: 700px;
+}
+
+td {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+td.shortcut {
+  float: right;
+  padding-right: 32px;
+  color: rgb(140, 145, 155);
+}
+
+td.description {
+  color: rgb(140, 145, 155);
+  font-size: 14px;
+}
+
+em {
+  /* Highlighted (matched) characters */
+  font-weight: bold;
+  color: #4d88ff;
+  font-style: normal;
+}
+
+span {
+  /* Action ID text - kept invisible */
+  color: transparent;
+  padding-left: 20px;
+}
