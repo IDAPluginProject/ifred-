@@ -1,6 +1,6 @@
 # Changelog
 
-## [unreleased]
+## [2026-09-03][2026.09.03]
 
 ### Added
 
@@ -91,7 +91,7 @@ This release is just a rebuilt for IDA Pro v9.3
 * IDA Pro v9.0 support
 * Prebuilt binaries provided
 
-[unreleased]: https://github.com/blue-devil/ifred/compare/v2026.02.16...HEAD
+[2026.09.03]: https://github.com/blue-devil/ifred/compare/v2026.02.16...HEAD
 [2026.02.16]: https://github.com/blue-devil/ifred/compare/v2025.12.10...v2026.02.16
 [2025.12.10]: https://github.com/blue-devil/ifred/compare/v2025.09.14...v2025.12.10
 [2025.09.14]: https://github.com/blue-devil/ifred/compare/v2024.10.29...v2025.09.14
