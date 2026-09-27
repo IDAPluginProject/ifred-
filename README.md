@@ -113,6 +113,8 @@ solarized dark:
   * [x] Map ready
 * [ ] Is `standalone` working, check this
 * [ ] Custom palette using IDAPython does it still working?
+* [ ] Make the plugin reside in its folder `ifred`, not directly in `plugins` folder
+* [ ] Create proper `ida-plugin.json`
 
 [01]: ./assets/screenshots/1.png
 [02]: ./assets/screenshots/2.png
